@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/actName"
+        android:layout_width="93dp"
+        android:layout_height="55dp" />
+
+    <TextView
+        android:id="@+id/stageName"
+        android:layout_width="135dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="0dp"
+        android:layout_toEndOf="@id/setTime"
+
+
+        />
+
+    <TextView
+        android:id="@+id/setTime"
+        android:layout_width="105dp"
+        android:layout_height="55dp"
+        android:layout_toEndOf="@id/actName" />
+
+</RelativeLayout>
