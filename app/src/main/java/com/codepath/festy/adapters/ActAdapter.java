@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codepath.festy.R;
 import com.codepath.festy.models.Act;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
@@ -30,7 +28,7 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ActAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return null;
     }
 
