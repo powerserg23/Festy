@@ -1,15 +1,23 @@
 package com.codepath.festy;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
 import com.codepath.festy.adapters.ActAdapter;
 import com.codepath.festy.models.Act;
-
-import org.json.JSONObject;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +26,22 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView rvArts;
     List<Act> actData; //Artist+time+*add button*
 
+    Button mButtonTest;
+    TextView mConditionTextView;
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mFestivalRef = mRootRef.child("festival");
+    DatabaseReference mCoachellaRef = mFestivalRef.child("0");
+    DatabaseReference mNameRef = mCoachellaRef.child("name");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mButtonTest = (Button)findViewById(R.id.buttonTest);
+        mConditionTextView = (TextView)findViewById(R.id.textViewTest);
 
         rvArts=findViewById(R.id.rvArts);
         actData=new ArrayList<>();
@@ -29,8 +49,32 @@ public class MainActivity extends AppCompatActivity {
         final ActAdapter actAdapter = new ActAdapter(this, actData);
         rvArts.setAdapter(actAdapter);
         rvArts.setLayoutManager(new LinearLayoutManager(this));
-        JSONObject
+        //JSONObject
 
+    }
+
+    protected void onStart() {
+        super.onStart();
+
+        mNameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String text = dataSnapshot.getValue(String.class);
+                mConditionTextView.setText(text);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mButtonTest.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                mNameRef.setValue("Coachella2");
+                Toast.makeText(MainActivity.this, "This is the message", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 }
