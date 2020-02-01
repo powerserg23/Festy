@@ -1,6 +1,7 @@
 package com.codepath.festy.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -29,7 +30,8 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View actView= LayoutInflater.from(context).inflate(R.layout.item_act,parent,false);
+        return new ViewHolder(actView);
     }
 
     @Override

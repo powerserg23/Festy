@@ -9,6 +9,8 @@ import android.os.Bundle;
 import com.codepath.festy.adapters.ActAdapter;
 import com.codepath.festy.models.Act;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         final ActAdapter actAdapter = new ActAdapter(this, actData);
         rvArts.setAdapter(actAdapter);
         rvArts.setLayoutManager(new LinearLayoutManager(this));
-
+        JSONObject
 
 
     }
