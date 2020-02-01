@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "43617310015",
+    "firebase_url": "https://festivalbuddy-5d364.firebaseio.com",
+    "project_id": "festivalbuddy-5d364",
+    "storage_bucket": "festivalbuddy-5d364.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43617310015:android:5abf0640157d05d9d56f8a",
+        "android_client_info": {
+          "package_name": "com.codepath.festy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43617310015-ipgfmurrgbqjl0uphgfdlhss1gr80pv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQQbQc_WHzi1RS2x7w7mJPYWPkZJno1vI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43617310015-ipgfmurrgbqjl0uphgfdlhss1gr80pv0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
