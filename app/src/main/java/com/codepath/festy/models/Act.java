@@ -4,11 +4,11 @@ public class Act {
     String time;
     String name;
     String stage;
-    int index;
+    String index;
 
     public Act(){};
 
-    public Act(String name,String time,String stage)
+    public Act(String name,String time,String stage,String index)
     {
        this.time = time;
        this.name = name;
@@ -28,5 +28,9 @@ public class Act {
 
     public String getStage() {
         return stage;
+    }
+
+    public String getIndex() {
+        return index;
     }
 }
