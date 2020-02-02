@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     final String TAG = "MainActivity";
 
+    SharedPreferences settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         rvArts = findViewById(R.id.rvArts);
         actData = new ArrayList<>();
 
-
+        settings = getSharedPreferences("prefs", MODE_PRIVATE);
     }
 
     protected void onStart() {
@@ -53,7 +55,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot actSnapshot : dataSnapshot.getChildren()) {
-                    Act tempAct = new Act(actSnapshot.child("artist").getValue(String.class), actSnapshot.child("time").getValue(String.class), actSnapshot.child("stage").getValue(String.class), actSnapshot.child("index").getValue(String.class));
+                    Act tempAct = new Act(actSnapshot.child("artist").getValue(String.class),
+                            actSnapshot.child("time").getValue(String.class),
+                            actSnapshot.child("stage").getValue(String.class),
+                            actSnapshot.child("index").getValue(String.class),
+                            actSnapshot.child("viewers").hasChild(settings.getString("name", "")));
                     actData.add(tempAct);
                     Log.d(TAG, "LOG- " + tempAct.getName());
                 }
@@ -75,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences settings = getSharedPreferences("prefs", MODE_PRIVATE);
         final SharedPreferences.Editor editor = settings.edit();
 
         if (settings.getBoolean("FirstLaunch", true)) {

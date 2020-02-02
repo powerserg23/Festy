@@ -83,7 +83,7 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
             actName.setText(act.getName());
             stageName.setText(act.getStage());
             setTime.setText(act.getTime());
-
+            isGoing.setChecked(act.getGoing());
 
             isGoing.setOnClickListener(new View.OnClickListener() {
 

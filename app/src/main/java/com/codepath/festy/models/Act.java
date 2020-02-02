@@ -5,16 +5,17 @@ public class Act {
     String name;
     String stage;
     String index;
+    boolean going;
 
     public Act(){};
 
-    public Act(String name,String time,String stage,String index)
+    public Act(String name,String time,String stage,String index, boolean going)
     {
        this.time = time;
        this.name = name;
        this.stage = stage;
        this.index=index;
-
+       this.going = going;
 
     }
 
@@ -32,5 +33,9 @@ public class Act {
 
     public String getIndex() {
         return index;
+    }
+
+    public boolean getGoing() {
+        return going;
     }
 }
