@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 rvArts.setAdapter(actAdapter);
                 rvArts.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 actAdapter.notifyDataSetChanged();
+
             }
 
             @Override
