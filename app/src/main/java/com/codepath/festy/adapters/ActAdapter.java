@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -89,31 +91,7 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
 
 
         }
-        public void onButtonShowPopupWindowClick(View view) {
 
-            // inflate the layout of the popup window
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            View popupView = inflater.inflate(R.layout.popup_window, null);
-
-            // create the popup window
-            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            boolean focusable = true; // lets taps outside the popup also dismiss it
-            final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-            // show the popup window
-            // which view you pass in doesn't matter, it is only used for the window tolken
-            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-            // dismiss the popup window when touched
-            popupView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    popupWindow.dismiss();
-                    return true;
-                }
-            });
-        }
         public void bind(final Act act)
         {
             actName.setText(act.getName());
@@ -123,15 +101,24 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
             container.setOnLongClickListener(new View.OnLongClickListener(){
                 @Override
                 public boolean onLongClick(View v) {
-                    Toast.makeText(context,"longClicked",Toast.LENGTH_LONG);
-                    onButtonShowPopupWindowClick(v);
-
                     reference.child(act.getIndex()).child("viewers").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            List<String> friends = new ArrayList<>();
                             for (DataSnapshot actSnapshot : dataSnapshot.getChildren()) {
+                                friends.add(actSnapshot.getValue(String.class));
                                 Log.d("MainActivity", "LOG- " + actSnapshot.getValue(String.class));
                             }
+
+                            AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                            alert.setTitle("Friends Coming to see " + act.getName());
+                            String message = "";
+                            for (String f: friends) {
+                                message += f + ", ";
+                            }
+                            message = message.substring(0, message.length() - 2);
+                            alert.setMessage(message);
+                            alert.show();
                         }
 
                         @Override
