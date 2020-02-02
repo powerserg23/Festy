@@ -67,15 +67,21 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "START" + mNameRef.toString());
 
         mScheduleRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                        @Override
-                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                            for (DataSnapshot actSnapshot : dataSnapshot.getChildren()) {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                   for (DataSnapshot actSnapshot : dataSnapshot.getChildren()) {
                                                                 Act tempAct = new Act(actSnapshot.child("artist").getValue(String.class), actSnapshot.child("time").getValue(String.class), actSnapshot.child("stage").getValue(String.class));
                                                                 actData.add(tempAct);
                                                             }
                                                         }
 
-        }
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                        }
+
+                                                    });
 
         mNameRef.addValueEventListener(new ValueEventListener() {
             @Override
