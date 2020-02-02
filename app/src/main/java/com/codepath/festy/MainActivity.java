@@ -37,10 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         rvArts = findViewById(R.id.rvArts);
         actData = new ArrayList<>();
-
-        final ActAdapter actAdapter = new ActAdapter(this, actData);
-        rvArts.setAdapter(actAdapter);
-        rvArts.setLayoutManager(new LinearLayoutManager(this));
     }
 
     protected void onStart() {
@@ -49,11 +45,16 @@ public class MainActivity extends AppCompatActivity {
         mScheduleRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               for (DataSnapshot actSnapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot actSnapshot : dataSnapshot.getChildren()) {
                     Act tempAct = new Act(actSnapshot.child("artist").getValue(String.class), actSnapshot.child("time").getValue(String.class), actSnapshot.child("stage").getValue(String.class));
                     actData.add(tempAct);
                     Log.d(TAG, "LOG- " + tempAct.getName());
                 }
+
+                final ActAdapter actAdapter = new ActAdapter(MainActivity.this, actData);
+                rvArts.setAdapter(actAdapter);
+                rvArts.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                actAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -62,6 +63,5 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
     }
 }

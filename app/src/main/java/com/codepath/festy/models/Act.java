@@ -9,9 +9,9 @@ public class Act {
 
     public Act(String name,String time,String stage)
     {
-       this.time=time;
-       this.name=name;
-       this.stage=stage;
+       this.time = time;
+       this.name = name;
+       this.stage = stage;
     }
 
     public String getTime() {

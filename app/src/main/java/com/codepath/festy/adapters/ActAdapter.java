@@ -22,15 +22,15 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
     List<Act> acts;
     public ActAdapter(Context context,List<Act> acts)
     {
-        this.context=context;
-        this.acts=acts;
+        this.context = context;
+        this.acts = acts;
 
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View actView= LayoutInflater.from(context).inflate(R.layout.item_act,parent,false);
+        View actView = LayoutInflater.from(context).inflate(R.layout.item_act,parent,false);
         return new ViewHolder(actView);
     }
 
@@ -54,13 +54,13 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            actName=itemView.findViewById(R.id.actName);
-            stageName=itemView.findViewById(R.id.stageName);
-            setTime=itemView.findViewById(R.id.setTime);
-            container=itemView.findViewById(R.id.container);
+            actName = itemView.findViewById(R.id.actName);
+            stageName = itemView.findViewById(R.id.stageName);
+            setTime = itemView.findViewById(R.id.setTime);
+            container = itemView.findViewById(R.id.container);
 
         }
-        public void bind(final Act act)
+        public void bind(Act act)
         {
             actName.setText(act.getName());
             stageName.setText(act.getStage());
