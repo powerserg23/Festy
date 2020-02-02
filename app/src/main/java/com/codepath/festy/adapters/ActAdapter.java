@@ -86,7 +86,7 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
                         Log.d("MainActivity", act.getName());
                     }
                     else {
-                        Log.d("MainActivity", act.getTime());
+                        Log.d("MainActivity", act.getIndex());
                     }
                 }
             });
