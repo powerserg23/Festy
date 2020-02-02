@@ -1,5 +1,14 @@
 package com.codepath.festy.models;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,27 +16,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 public class Act {
     String time;
     String name;
     String stage;
     public Act(){};
-    public Act(JSONObject jsonObject) throws JSONException
+    public Act(String name,String time,String stage)
     {
-        time=jsonObject.getString("time");
-        stage=jsonObject.getString("stage");
-        name=jsonObject.getString("name");
+   this.time=time;
+   this.name=name;
+   this.stage=stage;
     }
 
-    public static List<Act> fromJsonArray(JSONArray actJsonArray) throws JSONException
-    {
-        List<Act> acts=new ArrayList<>();
-        for(int i=0;i<actJsonArray.length();i++)
-        {
-            acts.add(new Act(actJsonArray.getJSONObject(i)));
-        }
-        return acts;
-    }
+
 
     public String getTime() {
         return time;
