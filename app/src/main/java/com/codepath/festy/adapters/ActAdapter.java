@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,7 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
     Context context;
     List<Act> acts;
     DatabaseReference reference;
+    View.OnClickListener longClickListener;
 
     public ActAdapter(Context context,List<Act> acts,DatabaseReference reference)
     {
@@ -84,6 +86,13 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
             stageName.setText(act.getStage());
             setTime.setText(act.getTime());
             isGoing.setChecked(act.getGoing());
+            container.setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(context,"longClicked",Toast.LENGTH_SHORT);
+                    return true;
+                }
+            });
 
             isGoing.setOnClickListener(new View.OnClickListener() {
 
@@ -105,6 +114,9 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
                     }
                 }
             });
+
+
         }
+
     }
 }
