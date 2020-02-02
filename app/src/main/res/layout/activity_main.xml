@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/headerPIc"
+        android:layout_width="match_parent"
+        android:layout_height="181dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@mipmap/setheader_foreground" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvArts"
@@ -13,4 +29,6 @@
         tools:layout_editor_absoluteX="185dp"
         tools:layout_editor_absoluteY="142dp" />
 
-</RelativeLayout>
+
+</LinearLayout>
+</androidx.core.widget.NestedScrollView>

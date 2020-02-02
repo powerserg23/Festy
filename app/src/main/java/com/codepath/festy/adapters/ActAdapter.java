@@ -47,7 +47,8 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return acts.size();
     }
 
@@ -59,6 +60,7 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
         RelativeLayout container;
         CheckBox isGoing;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             actName = itemView.findViewById(R.id.actName);
@@ -66,6 +68,7 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
             setTime = itemView.findViewById(R.id.setTime);
             container = itemView.findViewById(R.id.container);
             isGoing = itemView.findViewById(R.id.selectAct);
+
 
 
         }
