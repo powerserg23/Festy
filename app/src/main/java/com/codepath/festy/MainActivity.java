@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                             actSnapshot.child("time").getValue(String.class),
                             actSnapshot.child("stage").getValue(String.class),
                             actSnapshot.child("index").getValue(String.class),
-                            actSnapshot.child("viewers").hasChild(settings.getString("name", "")));
+                            actSnapshot.child("viewers").hasChild(settings.getString("name", "testing")));
                     actData.add(tempAct);
                     Log.d(TAG, "LOG- " + tempAct.getName());
                 }
