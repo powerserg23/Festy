@@ -66,6 +66,19 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "START" + mNameRef.toString());
 
+        mScheduleRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot actSnapshot: dataSnapshot.getChildren()) {
+                    mNameRef.setValue(actSnapshot.child("artist").getValue(String.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         mNameRef.addValueEventListener(new ValueEventListener() {
             @Override
