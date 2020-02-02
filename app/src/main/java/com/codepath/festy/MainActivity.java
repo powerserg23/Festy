@@ -1,6 +1,7 @@
 package com.codepath.festy;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,7 +34,14 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference mFestivalRef = mRootRef.child("festival");
     DatabaseReference mCoachellaRef = mFestivalRef.child("0");
     DatabaseReference mNameRef = mCoachellaRef.child("name");
+    DatabaseReference mScheduleRef = mCoachellaRef.child("schedule");
+    DatabaseReference mPerformanceRef = mScheduleRef.child("0");
+    DatabaseReference mArtistRef = mPerformanceRef.child("artist");
 
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("test");
+
+    final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +64,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        Log.d(TAG, "START" + mNameRef.toString());
+
+
         mNameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String text = dataSnapshot.getValue(String.class);
                 mConditionTextView.setText(text);
+                Log.d(TAG, "TESTING_LOG: " + dataSnapshot.toString());
             }
 
             @Override
@@ -72,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         mButtonTest.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 mNameRef.setValue("Coachella2");
-                Toast.makeText(MainActivity.this, "This is the message", Toast.LENGTH_LONG).show();
             }
         });
 
