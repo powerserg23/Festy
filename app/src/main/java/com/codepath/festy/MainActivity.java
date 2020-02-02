@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "LOG- " + tempAct.getName());
                 }
 
-                final ActAdapter actAdapter = new ActAdapter(MainActivity.this, actData);
+                final ActAdapter actAdapter = new ActAdapter(MainActivity.this, actData,mScheduleRef);
                 rvArts.setAdapter(actAdapter);
                 rvArts.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 actAdapter.notifyDataSetChanged();

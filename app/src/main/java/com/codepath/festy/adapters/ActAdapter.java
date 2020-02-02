@@ -31,10 +31,11 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
     List<Act> acts;
     DatabaseReference reference;
 
-    public ActAdapter(Context context,List<Act> acts)
+    public ActAdapter(Context context,List<Act> acts,DatabaseReference reference)
     {
         this.context = context;
         this.acts = acts;
+        this.reference=reference;
 
     }
 
