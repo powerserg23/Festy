@@ -1,9 +1,13 @@
 package com.codepath.festy;
 
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Context;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView rvArts;
@@ -37,10 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
         rvArts = findViewById(R.id.rvArts);
         actData = new ArrayList<>();
+
+
     }
 
     protected void onStart() {
         super.onStart();
+
 
         mScheduleRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -63,5 +73,38 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences settings = getSharedPreferences("prefs", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = settings.edit();
+
+        if (settings.getBoolean("FirstLaunch", true)) {
+            // first time launching
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+            alert.setTitle("Hello! Welcome to Festy!");
+            alert.setMessage("Please enter your full name");
+
+            final EditText input = new EditText(this);
+            alert.setView(input);
+
+            alert.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String value = String.valueOf(input.getText());
+                    editor.putString("name", value);
+                    editor.apply();
+                }
+            });
+
+            alert.show();
+
+            editor.putBoolean("FirstLaunch", false);
+            editor.apply();
+
+        }
     }
 }
