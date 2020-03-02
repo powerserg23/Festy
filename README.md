@@ -14,12 +14,12 @@ It works offline when cell service is not available so you don't get lost in the
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category:** 
-- **Mobile:**
-- **Story:**
-- **Market:**
-- **Habit:**
-- **Scope:**
+- **Category:**  Event
+- **Mobile:** Android
+- **Story:** 8/10
+- **Market:** Event planning and logistics
+- **Habit:** Whenever they go to a festival or when an event is hosted that is expected to have a large audience/crowd
+- **Scope:** 
 
 ## Product Spec
 
