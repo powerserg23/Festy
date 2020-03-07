@@ -54,6 +54,9 @@ It works offline when cell service is not available so you don't get lost in the
 * List of festivals (interactive tabs)
 * Group Page
 * Profile Page
+    * Able to upload and change profile picture
+    * Displays list of artists, locations, times that the user has selected
+      * obtained from List of Festival Page/ListFragment 
 
 **Flow Navigation** (Screen to Screen)
 
