@@ -1,25 +1,27 @@
-package com.codepath.festy;
+package com.codepath.festy.fragments;
+
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.codepath.festy.fragments.ListFragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.codepath.festy.MainActivity;
+import com.codepath.festy.R;
 import com.codepath.festy.adapters.ActAdapter;
 import com.codepath.festy.models.Act;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,66 +31,46 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-    //RecyclerView rvArts;
-    //List<Act> actData;
+import static android.content.Context.MODE_PRIVATE;
 
-    //DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    //DatabaseReference mFestivalRef = mRootRef.child("festival");
-    //DatabaseReference mCoachellaRef = mFestivalRef.child("0");
-    //DatabaseReference mScheduleRef = mCoachellaRef.child("schedule");
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ListFragment extends Fragment {
+    final String TAG = "ListFragment";
+    RecyclerView rvArts;
+    List<Act> actData;
 
-    final String TAG = "MainActivity";
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mFestivalRef = mRootRef.child("festival");
+    DatabaseReference mCoachellaRef = mFestivalRef.child("0");
+    DatabaseReference mScheduleRef = mCoachellaRef.child("schedule");
 
-    final FragmentManager fragmentManager = getSupportFragmentManager();
-    private BottomNavigationView bottomNavigationView;
+    SharedPreferences settings;
 
-    //SharedPreferences settings;
+    public ListFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_list, container, false);
+    }
 
-        //rvArts = findViewById(R.id.rvArts);
-        bottomNavigationView = findViewById(R.id.bottomNavigation);
-        //actData = new ArrayList<>();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        rvArts = view.findViewById(R.id.rvArts);
+        actData = new ArrayList<>();
+        settings = getContext().getSharedPreferences("prefs", MODE_PRIVATE);
 
-        //settings = getSharedPreferences("prefs", MODE_PRIVATE);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Fragment fragment;
-                switch (menuItem.getItemId()){
-                    case R.id.action_list:
-                        Toast.makeText(MainActivity.this, "Main List", Toast.LENGTH_SHORT).show();
-                        fragment = new ListFragment();
-                        break;
-                    case R.id.action_group:
-                        Toast.makeText(MainActivity.this, "Group Page", Toast.LENGTH_SHORT).show();
-                        fragment = new ListFragment();
-                        break;
-                    case R.id.action_profile:
-                    default:
-                        Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
-                        fragment = new ListFragment();
-                        break;
-                }
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
-                return true;
-            }
-        });
-
-        bottomNavigationView.setSelectedItemId(R.id.action_list);
+        addData();
 
     }
 
-    protected void onStart() {
-        super.onStart();
-        bottomNavigationView.setSelectedItemId(R.id.action_list);
-    }
-/*
-    protected void onStart(){
+    protected void addData(){
         mScheduleRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -117,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         final SharedPreferences.Editor editor = settings.edit();
@@ -148,6 +130,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
- */
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_list"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="Festival List"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_group"
+        android:icon="@drawable/ic_group_black_24dp"
+        android:title="Group Page"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Profile"
+        app:showAsAction="always" />
+</menu>
