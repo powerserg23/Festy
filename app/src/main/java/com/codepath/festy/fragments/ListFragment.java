@@ -1,6 +1,7 @@
 package com.codepath.festy.fragments;
 
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,7 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.codepath.festy.MainActivity;
 import com.codepath.festy.R;
@@ -40,7 +43,7 @@ public class ListFragment extends Fragment {
     final String TAG = "ListFragment";
     RecyclerView rvArts;
     List<Act> actData;
-
+    private AlertDialog logDialog;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mFestivalRef = mRootRef.child("festival");
     DatabaseReference mCoachellaRef = mFestivalRef.child("0");
@@ -106,27 +109,48 @@ public class ListFragment extends Fragment {
 
         if (settings.getBoolean("FirstLaunch", true)) {
             // first time launching
-            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-
+            final AlertDialog.Builder alert= new AlertDialog.Builder(getContext());
+            alert.setCancelable(false);
             alert.setTitle("Hello! Welcome to Festy!");
             alert.setMessage("Please enter your full name");
-
+            alert.setPositiveButton("Enter",null);
             final EditText input = new EditText(getContext());
-            alert.setView(input);
 
-            alert.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+            alert.setView(input);
+            final AlertDialog diag=alert.create();
+
+
+            diag.setOnShowListener(new DialogInterface.OnShowListener() {
+
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String value = String.valueOf(input.getText());
-                    editor.putString("name", value);
-                    editor.apply();
+                public void onShow(DialogInterface dialog) {
+
+                    Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+
+                    button.setOnClickListener(new View.OnClickListener() {
+
+                        public void onClick(View view) {
+                            String value = String.valueOf(input.getText());
+                            if(value.isEmpty())
+                            {
+                                Toast.makeText(getContext(),"Please enter a name",Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                editor.putString("name", value);
+                                editor.putBoolean("FirstLaunch", false);
+                                editor.apply();
+                                diag.dismiss();
+                            }
+
+                        }
+                    });
                 }
             });
 
-            alert.show();
+            diag.show();
 
-            editor.putBoolean("FirstLaunch", false);
-            editor.apply();
+
+
 
         }
     }
