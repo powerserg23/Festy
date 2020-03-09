@@ -38,16 +38,13 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (menuItem.getItemId()){
                     case R.id.action_list:
-                        Toast.makeText(MainActivity.this, "Main List", Toast.LENGTH_SHORT).show();
                         fragment = new ListFragment();
                         break;
                     case R.id.action_group:
-                        Toast.makeText(MainActivity.this, "Group Page", Toast.LENGTH_SHORT).show();
                         fragment = new GroupFragment();
                         break;
                     case R.id.action_profile:
                     default:
-                        Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_SHORT).show();
                         fragment = new ProfileFragment();
                         break;
                 }
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        bottomNavigationView.setSelectedItemId(R.id.action_list);
+        //bottomNavigationView.setSelectedItemId(R.id.action_list);
 
     }
 

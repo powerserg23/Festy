@@ -25,6 +25,7 @@ import com.codepath.festy.MainActivity;
 import com.codepath.festy.R;
 import com.codepath.festy.adapters.ActAdapter;
 import com.codepath.festy.models.Act;
+import com.codepath.festy.models.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,9 +46,10 @@ public class ListFragment extends Fragment {
     List<Act> actData;
     private AlertDialog logDialog;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mFestivalRef = mRootRef.child("festival");
-    DatabaseReference mCoachellaRef = mFestivalRef.child("0");
+    DatabaseReference mCoachellaRef = mRootRef.child("festival").child("0");
     DatabaseReference mScheduleRef = mCoachellaRef.child("schedule");
+    DatabaseReference mUsersRef = mCoachellaRef.child("users");
+    DatabaseReference mGroupsRef = mCoachellaRef.child("groups");
 
     SharedPreferences settings;
 
@@ -69,8 +71,8 @@ public class ListFragment extends Fragment {
         actData = new ArrayList<>();
         settings = getContext().getSharedPreferences("prefs", MODE_PRIVATE);
 
+        // Loads the acts from firebase and adds to adapter
         addData();
-
     }
 
     protected void addData(){
@@ -87,16 +89,14 @@ public class ListFragment extends Fragment {
                     Log.d(TAG, "LOG- " + tempAct.getName());
                 }
 
-                final ActAdapter actAdapter = new ActAdapter(getContext(), actData,mScheduleRef);
+                final ActAdapter actAdapter = new ActAdapter(getContext(), actData, mScheduleRef);
                 rvArts.setAdapter(actAdapter);
                 rvArts.setLayoutManager(new LinearLayoutManager(getContext()));
                 actAdapter.notifyDataSetChanged();
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
 
         });
@@ -104,54 +104,77 @@ public class ListFragment extends Fragment {
 
     public void onResume() {
         super.onResume();
-
         final SharedPreferences.Editor editor = settings.edit();
+
+        final ArrayList<String> usersList = new ArrayList<String>();
 
         if (settings.getBoolean("FirstLaunch", true)) {
             // first time launching
-            final AlertDialog.Builder alert= new AlertDialog.Builder(getContext());
+
+            // Load all of the usernames, and store in a list
+            // this ensures we do not duplicate usernames
+            mUsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.getChildrenCount() > 0) {
+                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                            for (DataSnapshot nameSnapshot : userSnapshot.getChildren()) {
+                                Log.i(TAG, "add user:  " + nameSnapshot.getValue());
+                                usersList.add(nameSnapshot.getValue().toString());
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+
+
+            final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
             alert.setCancelable(false);
             alert.setTitle("Hello! Welcome to Festy!");
-            alert.setMessage("Please enter your full name");
+            alert.setMessage("Please enter a username");
             alert.setPositiveButton("Enter",null);
             final EditText input = new EditText(getContext());
 
             alert.setView(input);
-            final AlertDialog diag=alert.create();
-
+            final AlertDialog diag = alert.create();
 
             diag.setOnShowListener(new DialogInterface.OnShowListener() {
-
                 @Override
                 public void onShow(DialogInterface dialog) {
-
                     Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
 
                     button.setOnClickListener(new View.OnClickListener() {
-
                         public void onClick(View view) {
-                            String value = String.valueOf(input.getText());
-                            if(value.isEmpty())
-                            {
-                                Toast.makeText(getContext(),"Please enter a name",Toast.LENGTH_SHORT).show();
+                            final String value = String.valueOf(input.getText());
+
+                            if(value.isEmpty()) {
+                                Toast.makeText(getContext(),"Please enter a username",Toast.LENGTH_SHORT).show();
+                            }
+                            else if(usersList.contains(value)) {
+                                Toast.makeText(getContext(),"Username already exists",Toast.LENGTH_SHORT).show();
                             }
                             else {
+                                // If we change the user member variables, it will change what gets stored in the database
+                                User user = new User();
+                                user.setName(value);
+
+                                // Using 'push()' allows for unique ID to be generated
+                                mUsersRef.push().setValue(user);
+
                                 editor.putString("name", value);
                                 editor.putBoolean("FirstLaunch", false);
                                 editor.apply();
                                 diag.dismiss();
                             }
-
                         }
                     });
                 }
             });
-
             diag.show();
-
-
-
-
         }
     }
 }

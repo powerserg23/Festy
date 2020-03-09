@@ -44,12 +44,11 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
     DatabaseReference reference;
     View.OnClickListener longClickListener;
 
-    public ActAdapter(Context context,List<Act> acts,DatabaseReference reference)
+    public ActAdapter(Context context,List<Act> acts, DatabaseReference reference)
     {
         this.context = context;
         this.acts = acts;
-        this.reference=reference;
-
+        this.reference = reference;
     }
 
     @NonNull
@@ -79,7 +78,6 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
         RelativeLayout container;
         CheckBox isGoing;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             actName = itemView.findViewById(R.id.actName);
@@ -87,9 +85,6 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
             setTime = itemView.findViewById(R.id.setTime);
             container = itemView.findViewById(R.id.container);
             isGoing = itemView.findViewById(R.id.selectAct);
-
-
-
         }
 
         public void bind(final Act act)
@@ -98,6 +93,7 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
             stageName.setText(act.getStage());
             setTime.setText(act.getTime());
             isGoing.setChecked(act.getGoing());
+
             container.setOnLongClickListener(new View.OnLongClickListener(){
                 @Override
                 public boolean onLongClick(View v) {
@@ -106,22 +102,25 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             List<String> friends = new ArrayList<>();
 
-                            Log.d("MainActivity", "getChildrenCount() of Viewers- " + dataSnapshot.getChildrenCount());
+                            //Log.d("MainActivity", "getChildrenCount() of Viewers: " + dataSnapshot.getChildrenCount());
                             if(dataSnapshot.getChildrenCount() > 0) {
                                 for (DataSnapshot actSnapshot : dataSnapshot.getChildren()) {
                                     friends.add(actSnapshot.getValue(String.class));
-                                    Log.d("MainActivity", "LOG- " + actSnapshot.getValue(String.class));
+                                    //Log.d("MainActivity", "LOG- " + actSnapshot.getValue(String.class));
                                 }
                             }
 
                             AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                            alert.setTitle("Friends Coming to see " + act.getName());
                             String message = "";
                             if(dataSnapshot.getChildrenCount() > 0) {
+                                alert.setTitle("Friends Coming to see " + act.getName());
                                 for (String f : friends) {
                                     message += f + ", ";
                                 }
                                 message = message.substring(0, message.length() - 2);
+                            }
+                            else {
+                                alert.setTitle("No Friends Coming to see " + act.getName());
                             }
                             alert.setMessage(message);
                             alert.show();
@@ -129,31 +128,27 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
                         }
-
                     });
-
                     return true;
                 }
             });
 
             isGoing.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
                     if(isGoing.isChecked()) {
                         Log.d("MainActivity", act.getName());
-                        DatabaseReference singer=reference.child(String.valueOf(act.getIndex()));
-                        DatabaseReference viewers=singer.child("viewers");
-                        SharedPreferences settings=context.getSharedPreferences("prefs",MODE_PRIVATE);
+                        DatabaseReference singer = reference.child(String.valueOf(act.getIndex()));
+                        DatabaseReference viewers = singer.child("viewers");
+                        SharedPreferences settings = context.getSharedPreferences("prefs",MODE_PRIVATE);
                         viewers.child(settings.getString("name", "")).setValue(settings.getString("name", ""));
                     }
                     else {
                         Log.d("MainActivity", act.getTime());
-                        DatabaseReference singer=reference.child(String.valueOf(act.getIndex()));
-                        DatabaseReference viewers=singer.child("viewers");
-                        SharedPreferences settings=context.getSharedPreferences("prefs",MODE_PRIVATE);
+                        DatabaseReference singer = reference.child(String.valueOf(act.getIndex()));
+                        DatabaseReference viewers = singer.child("viewers");
+                        SharedPreferences settings = context.getSharedPreferences("prefs",MODE_PRIVATE);
                         viewers.child(settings.getString("name", "")).removeValue();
                     }
                 }
