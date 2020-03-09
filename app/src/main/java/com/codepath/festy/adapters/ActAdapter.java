@@ -105,18 +105,24 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             List<String> friends = new ArrayList<>();
-                            for (DataSnapshot actSnapshot : dataSnapshot.getChildren()) {
-                                friends.add(actSnapshot.getValue(String.class));
-                                Log.d("MainActivity", "LOG- " + actSnapshot.getValue(String.class));
+
+                            Log.d("MainActivity", "getChildrenCount() of Viewers- " + dataSnapshot.getChildrenCount());
+                            if(dataSnapshot.getChildrenCount() > 0) {
+                                for (DataSnapshot actSnapshot : dataSnapshot.getChildren()) {
+                                    friends.add(actSnapshot.getValue(String.class));
+                                    Log.d("MainActivity", "LOG- " + actSnapshot.getValue(String.class));
+                                }
                             }
 
                             AlertDialog.Builder alert = new AlertDialog.Builder(context);
                             alert.setTitle("Friends Coming to see " + act.getName());
                             String message = "";
-                            for (String f: friends) {
-                                message += f + ", ";
+                            if(dataSnapshot.getChildrenCount() > 0) {
+                                for (String f : friends) {
+                                    message += f + ", ";
+                                }
+                                message = message.substring(0, message.length() - 2);
                             }
-                            message = message.substring(0, message.length() - 2);
                             alert.setMessage(message);
                             alert.show();
                         }
