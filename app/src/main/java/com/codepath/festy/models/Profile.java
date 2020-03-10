@@ -10,6 +10,24 @@ public class Profile {
     private String name;
     private List<String> sets_attending;
 
+    public Profile(String name,List<String>sets_attending)
+    {
+        this.name=name;
+        this.sets_attending=sets_attending;
+    }
+    public Profile(String name,String imageurl)
+    {
+        this.name=name;
+        this.imageurl=imageurl;
+    }
+
+    //this constructor is only used for testing before we have implemented an image for the profile
+    public Profile(String name)
+    {
+        this.name=name;
+
+    }
+
     public String getImageurl() {
         return imageurl;
     }

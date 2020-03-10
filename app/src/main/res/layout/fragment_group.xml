@@ -12,10 +12,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <View
-            android:id="@+id/groupHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp" />
+        <TextView
+            android:id="@+id/rvGroupTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GROUP NAME"
+            android:textAlignment="center"
+            android:textSize="50sp"
+            android:visibility="visible"
+            tools:text="GROUP NAME" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProfs"

@@ -22,12 +22,14 @@ public class GroupProfileAdapter extends RecyclerView.Adapter<GroupProfileAdapte
     Context context;
     List<Profile> profiles;
     DatabaseReference reference;
+    private onMemberListener mOnMemberListener;
 
-    public GroupProfileAdapter(Context context, List<Profile> profiles,DatabaseReference reference)
+    public GroupProfileAdapter(Context context, List<Profile> profiles,DatabaseReference reference,onMemberListener onMemberListener)
     {
         this.context=context;
         this.profiles=profiles;
         this.reference=reference;
+        this.mOnMemberListener=onMemberListener;
     }
     @NonNull
     @Override
@@ -35,7 +37,7 @@ public class GroupProfileAdapter extends RecyclerView.Adapter<GroupProfileAdapte
 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View profView= LayoutInflater.from(context).inflate(R.layout.group_member,parent,false);
-        return new ViewHolder(profView);
+        return new ViewHolder(profView,mOnMemberListener);
     }
 
     @Override
@@ -44,21 +46,37 @@ public class GroupProfileAdapter extends RecyclerView.Adapter<GroupProfileAdapte
         holder.bind(profile);
 
     }
-    public class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         ImageView ivProfilePic;
         TextView tvUserName;
+        onMemberListener onMemberListener;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView,onMemberListener onMemberListener) {
             super(itemView);
             ivProfilePic=itemView.findViewById(R.id.ivProfilePic);
-            tvUserName=itemView.findViewById(R.id.ivProfilePic);
+            tvUserName=itemView.findViewById(R.id.tvUserName);
+            this.onMemberListener=onMemberListener;
+
+            itemView.setOnClickListener(this);
+
 
         }
 
         public void bind(Profile profile) {
+        tvUserName.setText(profile.getName());
+        ivProfilePic.setImageResource(R.drawable.ic_group_black_24dp);
 
         }
+
+        @Override
+        public void onClick(View v) {
+        onMemberListener.onMemberClick(getAdapterPosition());
+        }
+    }
+    public interface onMemberListener
+    {
+        void onMemberClick(int position);
     }
 
     @Override
