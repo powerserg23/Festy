@@ -83,4 +83,5 @@ public class GroupProfileAdapter extends RecyclerView.Adapter<GroupProfileAdapte
     public int getItemCount() {
         return profiles.size();
     }
+
 }

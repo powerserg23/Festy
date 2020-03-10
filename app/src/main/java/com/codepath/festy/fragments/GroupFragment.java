@@ -101,5 +101,6 @@ public class GroupFragment extends Fragment implements GroupProfileAdapter.onMem
     public void onMemberClick(int position) {
         //TODO: Navigate to the clicked profile's profile
         Profile selectedProf=profData.get(position);
+        Log.d(TAG,"gets the position of the person and their name is: "+selectedProf.getName());
     }
 }

@@ -9,8 +9,13 @@ public class Profile {
     private ImageView prof_image;
     private String name;
     private List<String> sets_attending;
+    private String UNIQUE_ID;
 
-    public Profile(String name,List<String>sets_attending)
+    public void setUNIQUE_ID(String UNIQUE_ID) {
+        this.UNIQUE_ID = UNIQUE_ID;
+    }
+
+    public Profile(String name, List<String>sets_attending)
     {
         this.name=name;
         this.sets_attending=sets_attending;
