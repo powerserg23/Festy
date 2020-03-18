@@ -43,19 +43,29 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
     List<Act> acts;
     DatabaseReference reference;
     View.OnClickListener longClickListener;
+    Boolean inProfile;
 
-    public ActAdapter(Context context,List<Act> acts, DatabaseReference reference)
+    public ActAdapter(Context context,List<Act> acts, DatabaseReference reference,Boolean inProfile)
     {
         this.context = context;
         this.acts = acts;
         this.reference = reference;
+        this.inProfile=inProfile;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View actView = LayoutInflater.from(context).inflate(R.layout.item_act,parent,false);
-        return new ViewHolder(actView);
+        if(inProfile==false) {
+            View actView = LayoutInflater.from(context).inflate(R.layout.item_act, parent, false);
+            return new ViewHolder(actView);
+
+        }
+        else
+        {
+            View actView = LayoutInflater.from(context).inflate(R.layout.act_prof_detail, parent, false);
+            return new ViewHolder(actView);
+        }
     }
 
     @Override
@@ -84,6 +94,7 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
             stageName = itemView.findViewById(R.id.stageName);
             setTime = itemView.findViewById(R.id.setTime);
             container = itemView.findViewById(R.id.container);
+            if(inProfile!=true)
             isGoing = itemView.findViewById(R.id.selectAct);
         }
 
@@ -92,7 +103,8 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
             actName.setText(act.getName());
             stageName.setText(act.getStage());
             setTime.setText(act.getTime());
-            isGoing.setChecked(act.getGoing());
+            if(inProfile!=true)
+                isGoing.setChecked(act.getGoing());
 
             container.setOnLongClickListener(new View.OnLongClickListener(){
                 @Override
@@ -134,27 +146,27 @@ public class ActAdapter extends RecyclerView.Adapter<ActAdapter.ViewHolder> {
                 }
             });
 
-            isGoing.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(isGoing.isChecked()) {
-                        Log.d("MainActivity", act.getName());
-                        DatabaseReference singer = reference.child(String.valueOf(act.getIndex()));
-                        DatabaseReference viewers = singer.child("viewers");
-                        SharedPreferences settings = context.getSharedPreferences("prefs",MODE_PRIVATE);
-                        viewers.child(settings.getString("name", "")).setValue(settings.getString("name", ""));
+            if(inProfile!=true) {
+                isGoing.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (isGoing.isChecked()) {
+                            Log.d("MainActivity", act.getName());
+                            DatabaseReference singer = reference.child(String.valueOf(act.getIndex()));
+                            DatabaseReference viewers = singer.child("viewers");
+                            SharedPreferences settings = context.getSharedPreferences("prefs", MODE_PRIVATE);
+                            viewers.child(settings.getString("name", "")).setValue(settings.getString("name", ""));
+                        } else {
+                            Log.d("MainActivity", act.getTime());
+                            DatabaseReference singer = reference.child(String.valueOf(act.getIndex()));
+                            DatabaseReference viewers = singer.child("viewers");
+                            SharedPreferences settings = context.getSharedPreferences("prefs", MODE_PRIVATE);
+                            viewers.child(settings.getString("name", "")).removeValue();
+                        }
                     }
-                    else {
-                        Log.d("MainActivity", act.getTime());
-                        DatabaseReference singer = reference.child(String.valueOf(act.getIndex()));
-                        DatabaseReference viewers = singer.child("viewers");
-                        SharedPreferences settings = context.getSharedPreferences("prefs",MODE_PRIVATE);
-                        viewers.child(settings.getString("name", "")).removeValue();
-                    }
-                }
-            });
+                });
 
-
+            }
         }
 
     }

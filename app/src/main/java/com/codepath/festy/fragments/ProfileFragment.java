@@ -4,6 +4,8 @@ package com.codepath.festy.fragments;
 import android.os.Bundle;
 
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +20,13 @@ import android.widget.TextView;
 import com.codepath.festy.R;
 import com.codepath.festy.adapters.ActAdapter;
 import com.codepath.festy.models.Act;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +41,13 @@ public class ProfileFragment extends Fragment {
     private Button btnUpload;
     private TextView tvLabel;
     private RecyclerView rvLineup;
+
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mCoachellaRef = mRootRef.child("festival").child("0");
+    DatabaseReference mScheduleRef = mCoachellaRef.child("schedule");
+    DatabaseReference mUsersRef = mCoachellaRef.child("users");
+    DatabaseReference mGroupsRef = mCoachellaRef.child("groups");
+    List<Act> actData;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -55,7 +70,37 @@ public class ProfileFragment extends Fragment {
         tvLabel = view.findViewById(R.id.tvLabel);
         rvLineup = view.findViewById(R.id.rvLineup);
 
-        List<Act> actData;
+
+       actData= new ArrayList<>();
+        addData();
+    }
+
+        protected void addData(){
+            mScheduleRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot actSnapshot : dataSnapshot.getChildren()) {
+                        Act tempAct = new Act(actSnapshot.child("artist").getValue(String.class),
+                                actSnapshot.child("time").getValue(String.class),
+                                actSnapshot.child("stage").getValue(String.class));
+                        actData.add(tempAct);
+                        Log.d(TAG, "LOG- " + tempAct.getName());
+                    }
+
+                    final ActAdapter actAdapter = new ActAdapter(getContext(), actData, mScheduleRef,true);
+                    rvLineup.setAdapter(actAdapter);
+                    rvLineup.setLayoutManager(new LinearLayoutManager(getContext()));
+                    actAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+
+            });
+        }
+
+
 
         //TODO: Get all Artists that the user selected and display
         //Step 1: get data from ListFragment
@@ -65,4 +110,4 @@ public class ProfileFragment extends Fragment {
         //Step 5: click button allows user to change profile picture (i.e change ivUserImage)
     }
 
-}
+

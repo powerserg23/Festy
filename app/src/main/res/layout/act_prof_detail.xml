@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/border"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="12dp"
+    android:backgroundTint="#00117258"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/actName"
+        android:layout_width="124dp"
+        android:layout_height="55dp"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/stageName"
+        android:layout_width="180dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="0dp"
+        android:layout_toEndOf="@id/setTime"
+
+
+        android:background="@android:color/white"
+        android:textColor="@android:color/black"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/setTime"
+        android:layout_width="82dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@id/actName"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black"
+        android:textSize="22sp" />
+
+
+</RelativeLayout>

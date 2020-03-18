@@ -16,11 +16,11 @@
             android:id="@+id/rvGroupTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GROUP NAME"
+            android:text="Litty"
             android:textAlignment="center"
             android:textSize="50sp"
             android:visibility="visible"
-            tools:text="GROUP NAME" />
+            tools:text="Litty" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProfs"

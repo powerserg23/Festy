@@ -89,7 +89,7 @@ public class ListFragment extends Fragment {
                     Log.d(TAG, "LOG- " + tempAct.getName());
                 }
 
-                final ActAdapter actAdapter = new ActAdapter(getContext(), actData, mScheduleRef);
+                final ActAdapter actAdapter = new ActAdapter(getContext(), actData, mScheduleRef,false);
                 rvArts.setAdapter(actAdapter);
                 rvArts.setLayoutManager(new LinearLayoutManager(getContext()));
                 actAdapter.notifyDataSetChanged();

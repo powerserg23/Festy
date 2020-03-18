@@ -18,6 +18,12 @@ public class Act {
        this.going = going;
 
     }
+    public Act(String name,String time, String stage)
+    {
+        this.name=name;
+        this.time=time;
+        this.stage=stage;
+    }
 
     public String getTime() {
         return time;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center"
@@ -15,23 +16,28 @@
         android:ems="10"
         android:hint="Username"
         android:paddingBottom="10dp"
+        android:text="Sergio Dejo Ames"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        tools:text="Sergio Dejo Ames" />
 
 
     <ImageView
         android:id="@+id/ivUserImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        tools:srcCompat="@drawable/ic_person_black_24dp"
-        android:src="@drawable/ic_person_black_24dp"/>
+        android:background="#FFFFFF"
+        android:src="@mipmap/profilepig"
+        android:visibility="visible"
+        tools:src="@mipmap/profilepig" />
 
     <Button
         android:id="@+id/btnUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update Profile"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/tvLabel"
