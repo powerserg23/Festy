@@ -6,6 +6,7 @@
 1. [Product Spec](#Product-Spec)
 1. [Wireframes](#Wireframes)
 2. [Schema](#Schema)
+2. [Features](#Features)
 2. [Group](#Group)
 
 ## Overview
@@ -77,8 +78,8 @@ It works offline when cell service is not available so you don't get lost in the
 
 ## Schema 
 <img src="https://i.imgur.com/it7r1ty.jpg" width=600>
-
-### Models
+## Features
+### Features
 <img src="https://i.imgur.com/l0B8Y6i.gif" width=600>
 
 ## Group
