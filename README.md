@@ -6,6 +6,7 @@
 1. [Product Spec](#Product-Spec)
 1. [Wireframes](#Wireframes)
 2. [Schema](#Schema)
+2. [Group](#Group)
 
 ## Overview
 ### Description
@@ -74,16 +75,18 @@ It works offline when cell service is not available so you don't get lost in the
 [Add picture of your hand sketched wireframes in this section]
 <img src="https://i.imgur.com/XGGHP5Q.jpg" width=600>
 
-### [BONUS] Digital Wireframes & Mockups
-
-### [BONUS] Interactive Prototype
-
 ## Schema 
 <img src="https://i.imgur.com/it7r1ty.jpg" width=600>
 
 ### Models
 <img src="https://i.imgur.com/l0B8Y6i.gif" width=600>
-### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+
+## Group
+Chase Chipres-Backend Lead
+
+Vinita Santhosh-Backend Developer
+Sergio Dejo-Frontend Lead
+Derek Nguyen-Frontend Developer
+
+
+
