@@ -79,10 +79,11 @@ It works offline when cell service is not available so you don't get lost in the
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-<img src="https://imgur.com/a/p0lckur" width=600>
+<img src="https://i.imgur.com/it7r1ty.jpg" width=600>
 
 ### Models
 [Add table of models]
+<img src="https://i.imgur.com/l0B8Y6i.gif" width=600>
 ### Networking
 - [Add list of network requests by screen ]
 - [Create basic snippets for each Parse network request]
