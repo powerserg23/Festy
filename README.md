@@ -83,12 +83,19 @@ It works offline when cell service is not available so you don't get lost in the
 
 ## Group
 Chase Chipres-Backend Lead
+
 Github: https://github.com/ChaseChipres
+
 Vinita Santhosh-Backend Developer
+
 Github: https://github.com/vinitasan979
+
 Sergio Dejo-Frontend Lead
+
 Github: https://github.com/powerserg23
+
 Derek Nguyen-Frontend Developer
+
 Github: https://github.com/derekn4
 
 
