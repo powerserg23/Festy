@@ -79,7 +79,8 @@ It works offline when cell service is not available so you don't get lost in the
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-[This section will be completed in Unit 9]
+<img src="https://i.imgur.com/l0B8Y6i.gif" width=600>
+
 ### Models
 [Add table of models]
 ### Networking
