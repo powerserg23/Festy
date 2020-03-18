@@ -78,8 +78,8 @@ It works offline when cell service is not available so you don't get lost in the
 
 ## Schema 
 <img src="https://i.imgur.com/it7r1ty.jpg" width=600>
-## Features
 
+## Features
 <img src="https://i.imgur.com/l0B8Y6i.gif" width=600>
 
 ## Group
